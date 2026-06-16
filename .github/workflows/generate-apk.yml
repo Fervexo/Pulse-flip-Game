@@ -17,7 +17,7 @@ jobs:
         uses: ttechnologies/website-to-apk-action@v1
         with:
           build-folder-path: "build/" # Path to your HTML files
-          app-name: "My HTML App"     # Rename this to your desired app title
+          app-name: "Pulse Flip"     # Rename this to your desired app title
           output-folder-path: "apk/"  # Where the final APK will be stored
 
       - name: Upload Generated APK
