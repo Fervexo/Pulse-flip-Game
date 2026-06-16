@@ -3,7 +3,8 @@ name: Generate Web APK
 on:
   push:
     branches:
-      - main # Triggers the build every time you push to the main branch
+      - main
+  workflow_dispatch: # This adds a manual "Run workflow" button in your Actions tab
 
 jobs:
   build:
@@ -13,12 +14,17 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      - name: Compile HTML to APK
-        uses: ttechnologies/website-to-apk-action@v1
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
         with:
-          build-folder-path: "build/" # Path to your HTML files
-          app-name: "Pulse Flip"     # Rename this to your desired app title
-          output-folder-path: "apk/"  # Where the final APK will be stored
+          node-version: 18
+
+      - name: Compile HTML to APK
+        uses: darkshredder/web-to-app-action@v1 # Changed to the active repository
+        with:
+          build-folder-path: "build/"
+          app-name: "My HTML App"
+          output-folder-path: "apk/"
 
       - name: Upload Generated APK
         uses: actions/upload-artifact@v4
