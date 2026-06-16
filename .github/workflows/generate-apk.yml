@@ -1,1 +1,27 @@
+name: Generate Web APK
 
+on:
+  push:
+    branches:
+      - main # Triggers the build every time you push to the main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Compile HTML to APK
+        uses: ttechnologies/website-to-apk-action@v1
+        with:
+          build-folder-path: "build/" # Path to your HTML files
+          app-name: "My HTML App"     # Rename this to your desired app title
+          output-folder-path: "apk/"  # Where the final APK will be stored
+
+      - name: Upload Generated APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Android-APK
+          path: apk/
